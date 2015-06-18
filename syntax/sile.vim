@@ -84,21 +84,8 @@ if s:sile_fast =~ 'm'
   syn region sileBeginEndName		matchgroup=Delimiter start="{"	end="}"	contained	contains=sileComment
 endif
 " }}}
-"
-" {{{ Highlighting
-" sile highlighting groups which should share similar highlighting
-"if !exists("g:sile_no_error")
-  "if !exists("g:sile_no_math")
-  "HiLink sileBadMath		sileError
-  "HiLink sileMathDelimBad	sileError
-  "HiLink sileMathError		sileError
-  "if !b:sile_stylish
-    "HiLink sileOnlyMath	sileError
-  "endif
-  "endif
-  "HiLink sileError		Error
-"endif
 
+" {{{ Highlighting
 HiLink sileBeginEnd		sileCmdName
 HiLink sileBeginEndName		sileSection
 HiLink sileBeginEndModifier	sileCmdArgs
