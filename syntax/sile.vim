@@ -92,7 +92,16 @@ if s:sile_fast =~ 'm'
 endif
 " }}}
 
+" {{{ \include[]/\script[]:
+syn match  sileDocType		"\\include\>\|\\script\>\>"	nextgroup=sileBeginEndName,sileDocTypeArgs
+if s:sile_fast =~ 'm'
+  syn region sileDocTypeArgs		matchgroup=Delimiter start="\["	end="]" contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
+endif
+" }}}
+
 " {{{ Highlighting
+HiLink sileDocType		sileCmdName
+HiLink sileDocTypeArgs		sileCmdArgs
 HiLink sileBeginEnd		sileCmdName
 HiLink sileBeginEndName		sileSection
 HiLink sileBeginEndModifier	sileCmdArgs
