@@ -1,2 +1,5 @@
 # vim-sile
-Add  syntax highlighting and filetype plugins for SILE to vim.
+
+VIM syntax highlighting and filetype plugins for [SILE][sile].
+
+  [sile]: https://github.com/simoncozens/sile/
