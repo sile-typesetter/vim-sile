@@ -106,7 +106,7 @@ HiLink sileCmdArgs		Number
 HiLink sileCmdName		Statement
 HiLink sileComment		Comment
 HiLink sileSection		PreCondit
-HiLink sileTodo		Todo
+HiLink sileTodo	 		Todo
 delcommand HiLink
 " }}}
 
