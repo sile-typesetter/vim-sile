@@ -36,7 +36,7 @@ if exists("g:sile_fast")
  endif
  let s:sile_no_error= 1
 else
- let s:sile_fast= "s"
+ let s:sile_fast= "sm"
 endif
 " }}}
 
@@ -77,6 +77,14 @@ else
 endif
 " }}}
 
+" {{{ \begin{}/\end{} section markers
+syn match  sileBeginEnd		"\\begin\>\|\\end\>" nextgroup=sileBeginEndModifier,sileBeginEndName
+if s:sile_fast =~ 'm'
+  syn region sileBeginEndModifier	matchgroup=Delimiter start="\["	end="]"	contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
+  syn region sileBeginEndName		matchgroup=Delimiter start="{"	end="}"	contained	contains=sileComment
+endif
+" }}}
+"
 " {{{ Highlighting
 " sile highlighting groups which should share similar highlighting
 "if !exists("g:sile_no_error")
@@ -91,7 +99,13 @@ endif
   "HiLink sileError		Error
 "endif
 
+HiLink sileBeginEnd		sileCmdName
+HiLink sileBeginEndName		sileSection
+HiLink sileBeginEndModifier	sileCmdArgs
+HiLink sileCmdArgs		Number
+HiLink sileCmdName		Statement
 HiLink sileComment		Comment
+HiLink sileSection		PreCondit
 HiLink sileTodo		Todo
 delcommand HiLink
 " }}}
