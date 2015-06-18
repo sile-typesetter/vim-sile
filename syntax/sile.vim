@@ -77,6 +77,13 @@ else
 endif
 " }}}
 
+" {{{ Catch all basic syntacx
+" Catch all commands
+syn match sileStatement	"\\[a-zA-Z@]\+"
+" Catch delimiters
+syn match sileDelimiter		"\\\@<![{}]"
+" }}}
+
 " {{{ \begin{}/\end{} section markers
 syn match  sileBeginEnd		"\\begin\>\|\\end\>" nextgroup=sileBeginEndModifier,sileBeginEndName
 if s:sile_fast =~ 'm'
@@ -92,7 +99,9 @@ HiLink sileBeginEndModifier	sileCmdArgs
 HiLink sileCmdArgs		Number
 HiLink sileCmdName		Statement
 HiLink sileComment		Comment
+HiLink sileDelimiter		Delimiter
 HiLink sileSection		PreCondit
+HiLink sileStatement		Statement
 HiLink sileTodo	 		Todo
 delcommand HiLink
 " }}}
