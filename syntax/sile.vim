@@ -79,9 +79,11 @@ endif
 
 " {{{ Catch all basic syntacx
 " Catch all commands
-syn match sileStatement	"\\[a-zA-Z@]\+"
+syn match sileStatement	"\\[^\({ ]*"
 " Catch delimiters
 syn match sileDelimiter		"\\\@<![{}]"
+" Catch escaped special characters
+syn match sileSpecialCodeChar	"\\[\\%{}]"
 " }}}
 
 " {{{ \begin{}/\end{} section markers
@@ -110,6 +112,7 @@ HiLink sileCmdName		Statement
 HiLink sileComment		Comment
 HiLink sileDelimiter		Delimiter
 HiLink sileSection		PreCondit
+HiLink sileSpecialCodeChar	Special
 HiLink sileStatement		Statement
 HiLink sileTodo	 		Todo
 delcommand HiLink
