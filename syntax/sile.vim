@@ -15,6 +15,8 @@ elseif !exists('main_syntax')
 endif
 if !exists("did_tex_syntax_inits")
   command -nargs=+ HiLink hi def link <args>
+else
+  command -nargs=+ HiLink hi link <args>
 endif
 if exists("g:sile_no_error") && g:sile_no_error
  let s:sile_no_error= 1
