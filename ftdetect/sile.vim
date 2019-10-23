@@ -1,4 +1,4 @@
-autocmd BufNewFile,BufRead *.sil
+autocmd SileSyntax BufNewFile,BufRead *.sil
             \ if &ft =~# '^\%(conf\|modula2\)$' |
             \   set ft=sile |
             \ else |
