@@ -1,10 +1,10 @@
+scriptencoding utf-8
+" vim:set sw=2 ts=8 fdm=marker
+"
 " Vim syntax file
-" Language:     SILE
-" Maintainer:   Caleb Maclennan <caleb@alerque.com
-" Filenames:    *.sile
-" Last Change:  2015-06-18
-" Version:	1
-" URL:		https://github.com/alerque/vim-sile
+" Language:   SILE
+" Maintainer: Caleb Maclennan <caleb@alerque.com>
+" URL:        https://github.com/sile-typesetter/vim-sile
 
 " {{{ Start matter
 " Abort if we already have syntax running, otherwise get down to SILE business
@@ -13,11 +13,13 @@ if exists('b:current_syntax')
 elseif !exists('main_syntax')
   let main_syntax = 'sile'
 endif
+
 if !exists('did_tex_syntax_inits')
   command -nargs=+ HiLink hi def link <args>
 else
   command -nargs=+ HiLink hi link <args>
 endif
+
 if exists('g:sile_no_error') && g:sile_no_error
  let s:sile_no_error= 1
 endif
@@ -126,4 +128,3 @@ if main_syntax ==# 'sile'
   unlet main_syntax
 endif
 " }}}
-" vim:set sw=2 ts=8 fdm=marker
