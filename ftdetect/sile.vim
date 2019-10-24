@@ -1,4 +1,8 @@
-autocmd SileSyntax BufNewFile,BufRead *.sil
+augroup VimSile
+    autocmd!
+augroup END
+
+autocmd VimSile BufNewFile,BufRead *.sil
             \ if &ft =~# '^\%(conf\|modula2\)$' |
             \   set ft=sile |
             \ else |
