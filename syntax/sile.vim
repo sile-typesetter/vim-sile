@@ -1,50 +1,17 @@
-scriptencoding utf-8
-" vim:set sw=2 ts=8 fdm=marker
-"
 " Vim syntax file
 " Language:   SILE
 " Maintainer: Caleb Maclennan <caleb@alerque.com>
 " URL:        https://github.com/sile-typesetter/vim-sile
 
-" {{{ Start matter
-" Abort if we already have syntax running, otherwise get down to SILE business
+scriptencoding utf-8
+
 if exists('b:current_syntax')
-  finish
-elseif !exists('main_syntax')
-  let main_syntax = 'sile'
+  " finish
 endif
 
-if !exists('did_tex_syntax_inits')
-  command -nargs=+ HiLink hi def link <args>
-else
-  command -nargs=+ HiLink hi link <args>
-endif
-
-if exists('g:sile_no_error') && g:sile_no_error
- let s:sile_no_error= 1
-endif
-" }}}
-
-" {{{ Configuration
 syn sync maxlines=200
 syn sync minlines=50
 
-" by default, enable all region-based highlighting
-if exists('g:sile_fast')
- if type(g:sile_fast) != 1
-  " g:sile_fast exists and is not a string, so
-  " turn off all optional region-based highighting
-  let s:sile_fast= ''
- else
-  let s:sile_fast= g:sile_fast
- endif
- let s:sile_no_error= 1
-else
- let s:sile_fast= 'sm'
-endif
-" }}}
-
-" {{{ Handle folding
 if !exists('g:sile_fold_enabled')
  let g:sile_fold_enabled= 0
 elseif g:sile_fold_enabled && !has('folding')
@@ -54,9 +21,7 @@ endif
 if g:sile_fold_enabled && &foldmethod ==# 'manual'
  setl foldmethod=syntax
 endif
-"}}}
 
-" {{{ Handle Comments
 if !exists('g:sile_comment_nospell') || !g:sile_comment_nospell
  syn cluster sileCommentGroup	contains=sileTodo,@Spell
 else
@@ -69,62 +34,40 @@ if g:sile_fold_enabled
   " allows syntax-folding of 2 or more contiguous comment lines
   " single-line comments are not folded
   syn match  sileComment	"%.*$"			contains=@sileCommentGroup
-  if s:sile_fast =~# 'c'
   syn region sileComment	start="^\zs\s*%.*\_s*%"	skip="^\s*%"	end='^\ze\s*[^%]' fold
   syn region sileNoSpell	contained fold		matchgroup=sileComment start="%\s*nospell\s*{"	end="%\s*nospell\s*}"	contains=@sileFoldGroup,@NoSpell
-  endif
 else
   syn match sileComment		"%.*$"			contains=@sileCommentGroup
-  if s:sile_fast =~# 'c'
   syn region sileNoSpell	contained		matchgroup=sileComment start="%\s*nospell\s*{"	end="%\s*nospell\s*}"	contains=@sileFoldGroup,@NoSpell
-  endif
 endif
-" }}}
 
-" {{{ Catch all basic syntacx
 " Catch all commands
 syn match sileStatement	"\\[^\({ ]*"
 " Catch delimiters
 syn match sileDelimiter		"\\\@<![{}]"
 " Catch escaped special characters
 syn match sileSpecialCodeChar	"\\[\\%{}]"
-" }}}
 
-" {{{ \begin{}/\end{} section markers
 syn match  sileBeginEnd		"\\begin\>\|\\end\>" nextgroup=sileBeginEndModifier,sileBeginEndName
-if s:sile_fast =~# 'm'
-  syn region sileBeginEndModifier	matchgroup=Delimiter start="\["	end="]"	contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
-  syn region sileBeginEndName		matchgroup=Delimiter start="{"	end="}"	contained	contains=sileComment
-endif
-" }}}
+syn region sileBeginEndModifier	matchgroup=Delimiter start="\["	end="]"	contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
+syn region sileBeginEndName		matchgroup=Delimiter start="{"	end="}"	contained	contains=sileComment
 
-" {{{ \include[]/\script[]:
 syn match  sileDocType		"\\include\>\|\\script\>\>"	nextgroup=sileBeginEndName,sileDocTypeArgs
-if s:sile_fast =~# 'm'
-  syn region sileDocTypeArgs		matchgroup=Delimiter start="\["	end="]" contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
-endif
-" }}}
+syn region sileDocTypeArgs		matchgroup=Delimiter start="\["	end="]" contained	nextgroup=sileBeginEndName	contains=sileComment,@NoSpell
 
-" {{{ Highlighting
-HiLink sileDocType		sileCmdName
-HiLink sileDocTypeArgs		sileCmdArgs
-HiLink sileBeginEnd		sileCmdName
-HiLink sileBeginEndName		sileSection
-HiLink sileBeginEndModifier	sileCmdArgs
-HiLink sileCmdArgs		Number
-HiLink sileCmdName		Statement
-HiLink sileComment		Comment
-HiLink sileDelimiter		Delimiter
-HiLink sileSection		PreCondit
-HiLink sileSpecialCodeChar	Special
-HiLink sileStatement		Statement
-HiLink sileTodo	 		Todo
-delcommand HiLink
-" }}}
+hi def link sileDocType		sileCmdName
+hi def link sileDocTypeArgs		sileCmdArgs
+hi def link sileBeginEnd		sileCmdName
+hi def link sileBeginEndName		sileSection
+hi def link sileBeginEndModifier	sileCmdArgs
+hi def link sileCmdArgs		Number
+hi def link sileCmdName		Statement
+hi def link sileComment		Comment
+hi def link sileDelimiter		Delimiter
+hi def link sileSection		PreCondit
+hi def link sileSpecialCodeChar	Special
+hi def link sileStatement		Statement
+hi def link sileTodo	 		Todo
 
-" {{{ End matter
 let b:current_syntax = 'sile'
-if main_syntax ==# 'sile'
-  unlet main_syntax
-endif
-" }}}
+" vim: ts=8 fdm=marker
