@@ -19,34 +19,36 @@ syn keyword sileTodo		contained	fixme	todo	xxx
 syn case match
 
 syn match sileComment		"%.*$"			contains=sileTodo,@Spell
-syn match sileCommand		"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileParameters,sileContents
-syn match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockParameters,sileBlockCommand
 syn match sileEscapedChar	"\\[\\%{}]"
-syn match sileScript		"\\script\>"		nextgroup=sileParameters,sileLua
+syn match sileCommand		"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContents
+syn match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
+syn match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
 
-syn match sileParameterDef	"="	contained
-syn match sileParameterSep	","	contained
+syn match sileOption		"\h[a-zA-Z0-9]\+"	contained nextgroup=sileOptionDef
+syn match sileOptionDef		"="			contained nextgroup=sileOptionQuoted,sileOptionVal
+syn match sileOptionVal		'[^,\]"]\+'		contained nextgroup=sileOptionSep
+syn match sileOptionSep		","			contained
 
-syn region sileLua		matchgroup=Delimiter start="{"	end="}"	contained contains=@LUA
-syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}"	contained contains=sileComment
-syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained contains=sileComment,sileCommand,sileBlock,sileEscapedChar,sileScript
-syn region sileParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileContents contains=sileParameterDef,sileParameterSep,sileParameterQuoted,@NoSpell
-syn region sileParameterQuoted	matchgroup=Delimiter start='"'	end='"'	contained contains=sileComment,@NoSpell
-syn region sileBlockParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileBlockCommand contains=sileParameterDef,sileParameterSep,sileParameterQuoted,sileComment,@NoSpell
+syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained keepend contains=TOP,@Spell
+syn region sileOptions		matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileContents
+syn region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileBlockCommand
+syn region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained keepend contains=@LUA
+syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" contained keepend contains=sileComment
+syn region sileOptionQuoted	matchgroup=Delimiter start='"'	end='"' contained keepend contains=@NoSpell
 
-hi! def link sileScript			Statement
-hi! def link sileCommand		Statement
-hi! def link sileBlock			Statement
-hi! def link sileBlockCommand		PreCondit
-hi! def link sileParameters		Number
-hi! def link sileBlockParameters	Number
-hi! def link sileParameterDef		Operator
-hi! def link sileParameterSep		Delimiter
-hi! def link sileParameterQuoted	String
 hi! def link sileComment		Comment
-hi! def link sileEscapedChar		Special
 hi! def link sileTodo	 		Todo
-hi! def link sileContents		None
+hi! def link sileEscapedChar		Special
+hi! def link sileCommand		Function
+hi! def link sileScript			Type
+hi! def link sileOption			Identifier
+hi! def link sileOptionVal		Character
+hi! def link sileOptionSep		Delimiter
+hi! def link sileOptionDef		Operator
+hi! def link sileOptionVal		Character
+hi! def link sileOptionQuoted		String
+hi! def link sileBlock			Repeat
+hi! def link sileBlockCommand		Function
 
 let b:current_syntax = 'sile'
 " vim: ts=8 fdm=marker
