@@ -17,6 +17,7 @@ syn sync minlines=50
 syn case ignore
 syn keyword sileTodo		contained	fixme	todo	xxx
 syn case match
+syn keyword sileBoolean		contained	true false
 
 syn match sileComment		"%.*$"			contains=sileTodo,@Spell
 syn match sileEscapedChar	"\\[\\%{}]"
@@ -26,18 +27,19 @@ syn match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
 
 syn match sileOption		"\h[a-zA-Z0-9]\+"	contained nextgroup=sileOptionDef
 syn match sileOptionDef		"="			contained nextgroup=sileOptionQuoted,sileOptionVal
-syn match sileOptionVal		'[^,\]"]\+'		contained nextgroup=sileOptionSep
+syn match sileOptionVal		'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
 syn match sileOptionSep		","			contained
 
 syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained keepend contains=TOP,@Spell
 syn region sileOptions		matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileContents
 syn region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileBlockCommand
-syn region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained keepend contains=@LUA
+syn region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
 syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" contained keepend contains=sileComment
-syn region sileOptionQuoted	matchgroup=Delimiter start='"'	end='"' contained keepend contains=@NoSpell
+syn region sileOptionQuoted	matchgroup=Delimiter start='"'	end='"' contained keepend contains=sileBoolean,@NoSpell
 
 hi! def link sileComment		Comment
 hi! def link sileTodo	 		Todo
+hi! def link sileBoolean		Boolean
 hi! def link sileEscapedChar		Special
 hi! def link sileCommand		Function
 hi! def link sileScript			Type
