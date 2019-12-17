@@ -6,7 +6,7 @@
 scriptencoding utf-8
 
 if exists('b:current_syntax')
-  " finish
+  finish
 endif
 
 syntax include @LUA syntax/lua.vim
@@ -30,7 +30,7 @@ syn match sileParameterSep	","	contained
 syn region sileLua		matchgroup=Delimiter start="{"	end="}"	contained contains=@LUA
 syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}"	contained contains=sileComment
 syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained contains=sileComment,sileCommand,sileBlock,sileEscapedChar,sileScript
-syn region sileParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileContents contains=sileParameterDef,sileParameterSep,sileParameterQuoted,sileComment,@NoSpell
+syn region sileParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileContents contains=sileParameterDef,sileParameterSep,sileParameterQuoted,@NoSpell
 syn region sileParameterQuoted	matchgroup=Delimiter start='"'	end='"'	contained contains=sileComment,@NoSpell
 syn region sileBlockParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileBlockCommand contains=sileParameterDef,sileParameterSep,sileParameterQuoted,sileComment,@NoSpell
 
