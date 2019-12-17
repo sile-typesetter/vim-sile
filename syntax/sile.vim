@@ -30,8 +30,9 @@ syn match sileParameterSep	","	contained
 syn region sileLua		matchgroup=Delimiter start="{"	end="}"	contained contains=@LUA
 syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}"	contained contains=sileComment
 syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained contains=sileComment,sileCommand,sileBlock,sileEscapedChar,sileScript
-syn region sileParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileContents contains=sileParameterDef,sileParameterSep,sileComment,@NoSpell
-syn region sileBlockParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileBlockCommand contains=sileParameterDef,sileParameterSep,sileComment,@NoSpell
+syn region sileParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileContents contains=sileParameterDef,sileParameterSep,sileParameterQuoted,sileComment,@NoSpell
+syn region sileParameterQuoted	matchgroup=Delimiter start='"'	end='"'	contained contains=sileComment,@NoSpell
+syn region sileBlockParameters	matchgroup=Delimiter start="\["	end="]"	contained nextgroup=sileBlockCommand contains=sileParameterDef,sileParameterSep,sileParameterQuoted,sileComment,@NoSpell
 
 hi! def link sileScript			Statement
 hi! def link sileCommand		Statement
@@ -41,6 +42,7 @@ hi! def link sileParameters		Number
 hi! def link sileBlockParameters	Number
 hi! def link sileParameterDef		Operator
 hi! def link sileParameterSep		Delimiter
+hi! def link sileParameterQuoted	String
 hi! def link sileComment		Comment
 hi! def link sileEscapedChar		Special
 hi! def link sileTodo	 		Todo
