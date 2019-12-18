@@ -30,12 +30,12 @@ syn match sileOptionDef		"="			contained nextgroup=sileOptionQuoted,sileOptionVa
 syn match sileOptionVal		'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
 syn match sileOptionSep		","			contained
 
-syn region sileContents		matchgroup=Delimiter start="{"	end="}" contained keepend contains=TOP,@Spell
+syn region sileContents		matchgroup=Delimiter start="{"	skip="\\}" end="}" contained keepend contains=TOP,@Spell
 syn region sileOptions		matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileContents
 syn region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileBlockCommand
 syn region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
 syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" contained keepend contains=sileComment
-syn region sileOptionQuoted	matchgroup=Delimiter start='"'	end='"' contained keepend contains=sileBoolean,@NoSpell
+syn region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean,@NoSpell
 
 hi! def link sileComment		Comment
 hi! def link sileTodo	 		Todo
