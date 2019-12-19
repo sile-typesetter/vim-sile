@@ -30,7 +30,7 @@ syntax match sileOptionDef	"="			contained nextgroup=sileOptionQuoted,sileOption
 syntax match sileOptionVal	'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
 syntax match sileOptionSep	","			contained
 
-syntax region sileBlockLua	start="\\begin{script}" end="\\end{script}"me=s-1 keepend contains=sileBlock,@LUA
+syntax region sileBlockLua	start="\\begin\(\[[^\]]*]\)\={script}" end="\\end{script}"me=s-1 keepend contains=sileBlock,@LUA
 
 syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP,@Spell
 syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption,@NoSpell nextgroup=sileContents
