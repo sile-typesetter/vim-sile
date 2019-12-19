@@ -11,46 +11,46 @@ endif
 
 syntax include @LUA syntax/lua.vim
 
-syn sync maxlines=200
-syn sync minlines=50
+syntax sync maxlines=200
+syntax sync minlines=50
 
-syn case ignore
-syn keyword sileTodo		contained	fixme	todo	xxx
-syn case match
-syn keyword sileBoolean		contained	true false
+syntax case ignore
+syntax keyword sileTodo		contained fixme todo xxx
+syntax case match
+syntax keyword sileBoolean	contained true false
 
-syn match sileComment		"%.*$"			contains=sileTodo,@Spell
-syn match sileEscapedChar	"\\[\\%{}]"
-syn match sileCommand		"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContents
-syn match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
-syn match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
+syntax match sileComment	"%.*$"			contains=sileTodo,@Spell
+syntax match sileEscapedChar	"\\[\\%{}]"
+syntax match sileCommand	"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContents
+syntax match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
+syntax match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
 
-syn match sileOption		"\h[a-zA-Z0-9]\+"	contained nextgroup=sileOptionDef
-syn match sileOptionDef		"="			contained nextgroup=sileOptionQuoted,sileOptionVal
-syn match sileOptionVal		'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
-syn match sileOptionSep		","			contained
+syntax match sileOption		"\h[a-zA-Z0-9]\+"	contained nextgroup=sileOptionDef
+syntax match sileOptionDef	"="			contained nextgroup=sileOptionQuoted,sileOptionVal
+syntax match sileOptionVal	'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
+syntax match sileOptionSep	","			contained
 
-syn region sileContents		matchgroup=Delimiter start="{"	skip="\\}" end="}" contained keepend contains=TOP,@Spell
-syn region sileOptions		matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileContents
-syn region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" contained keepend contains=sileOption,@NoSpell nextgroup=sileBlockCommand
-syn region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
-syn region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" contained keepend contains=sileComment
-syn region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean,@NoSpell
+syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP,@Spell
+syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption,@NoSpell nextgroup=sileContents
+syntax region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption,@NoSpell nextgroup=sileBlockCommand
+syntax region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
+syntax region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" keepend contained contains=sileComment
+syntax region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean,@NoSpell
 
-hi! def link sileComment		Comment
-hi! def link sileTodo	 		Todo
-hi! def link sileBoolean		Boolean
-hi! def link sileEscapedChar		Special
-hi! def link sileCommand		Function
-hi! def link sileScript			Type
-hi! def link sileOption			Identifier
-hi! def link sileOptionVal		Character
-hi! def link sileOptionSep		Delimiter
-hi! def link sileOptionDef		Operator
-hi! def link sileOptionVal		Character
-hi! def link sileOptionQuoted		String
-hi! def link sileBlock			Repeat
-hi! def link sileBlockCommand		Function
+highlight! def link sileComment		Comment
+highlight! def link sileTodo		Todo
+highlight! def link sileBoolean		Boolean
+highlight! def link sileEscapedChar	Special
+highlight! def link sileCommand		Function
+highlight! def link sileScript		Type
+highlight! def link sileOption		Identifier
+highlight! def link sileOptionVal	Character
+highlight! def link sileOptionSep	Delimiter
+highlight! def link sileOptionDef	Operator
+highlight! def link sileOptionVal	Character
+highlight! def link sileOptionQuoted	String
+highlight! def link sileBlock		Repeat
+highlight! def link sileBlockCommand	Function
 
 let b:current_syntax = 'sile'
 " vim: ts=8 fdm=marker
