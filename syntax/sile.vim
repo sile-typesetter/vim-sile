@@ -25,7 +25,7 @@ syntax match sileCommand	"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContent
 syntax match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
 syntax match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
 
-syntax match sileOption		"\h[a-zA-Z0-9]\+"	contained nextgroup=sileOptionDef
+syntax match sileOption		"\h[a-zA-Z0-9-]\+"	contained nextgroup=sileOptionDef
 syntax match sileOptionDef	"="			contained nextgroup=sileOptionQuoted,sileOptionVal
 syntax match sileOptionVal	'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
 syntax match sileOptionSep	","			contained
