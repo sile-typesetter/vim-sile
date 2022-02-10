@@ -1,0 +1,11 @@
+Before:
+
+Given sile:
+  foo
+  % bar
+  baz
+
+Execute (comment):
+  AssertEqual '', SyntaxAt(1, 2)
+  AssertEqual 'sileComment', SyntaxAt(2, 3)
+  AssertEqual '', SyntaxOf(1, 2)
