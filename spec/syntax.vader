@@ -2,10 +2,29 @@ Before:
 
 Given sile:
   foo
-  % bar
+  % todo bar
   baz
 
 Execute (comment):
   AssertEqual '', SyntaxAt(1, 2)
-  AssertEqual 'sileComment', SyntaxAt(2, 3)
+  AssertEqual 'sileComment', SyntaxAt(2, 1)
+  AssertEqual 'sileTodo', SyntaxAt(2, 4)
+  AssertEqual 'sileComment', SyntaxAt(2, 8)
   AssertEqual '', SyntaxOf(1, 2)
+
+Given sile:
+  \foo[key=val,foo="quoted string",int=66]{content}
+
+Execute (command):
+  AssertEqual 'sileCommand', SyntaxAt(1, 1)
+  AssertEqual 'sileCommand', SyntaxOf('\foo')
+  AssertEqual 'Delimiter', SyntaxAt(1, 5)
+  AssertEqual 'Delimiter', SyntaxAt(1, 40)
+  AssertEqual 'sileOptionSep', SyntaxAt(1, 13)
+  AssertEqual 'Delimiter', SyntaxAt(1, 18)
+  AssertEqual 'sileOptionQuoted', SyntaxOf('string')
+  AssertEqual 'Delimiter', SyntaxAt(1, 32)
+  AssertEqual 'sileOption', SyntaxOf('key')
+  AssertEqual 'sileOptionVal', SyntaxOf('val')
+  AssertEqual 'sileOptionVal', SyntaxOf('6')
+  AssertEqual 'sileOptionDef', SyntaxOf('=')
