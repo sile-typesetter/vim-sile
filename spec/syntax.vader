@@ -21,6 +21,7 @@ Execute (command):
   AssertEqual 'Delimiter', SyntaxAt(1, 5)
   AssertEqual 'Delimiter', SyntaxAt(1, 40)
   AssertEqual 'sileOptionSep', SyntaxAt(1, 13)
+  " AssertEqual 'sileOptionSep', SyntaxAt(1, 32)
   AssertEqual 'Delimiter', SyntaxAt(1, 18)
   AssertEqual 'sileOptionQuoted', SyntaxOf('string')
   AssertEqual 'Delimiter', SyntaxAt(1, 32)
@@ -28,3 +29,11 @@ Execute (command):
   AssertEqual 'sileOptionVal', SyntaxOf('val')
   AssertEqual 'sileOptionVal', SyntaxOf('6')
   AssertEqual 'sileOptionDef', SyntaxOf('=')
+
+Given sile:
+  foo \bar[t=true,f=false,p=val] baz
+
+Execute (booleans):
+  " AssertEqual 'sileBoolean', SyntaxOf('true')
+  " AssertEqual 'sileBoolean', SyntaxOf('false')
+  " AssertNotEqual 'sileOptionVal', SyntaxOf('val')
