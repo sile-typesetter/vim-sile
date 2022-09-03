@@ -27,14 +27,15 @@ syntax match sileComment	"%.*$"			contains=@Spell,sileTodo
 syntax match sileEscapedChar	"\\[\\%{}]"
 syntax match sileCommand	"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContents
 syntax match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
-syntax match sileScript		"\\script\>"		nextgroup=sileOptions,sileInlineLua
+syntax match sileLua		"\\\(script\|lua\)\>"	nextgroup=sileOptions,sileInlineLua
 
 syntax match sileOption		"\h[a-zA-Z0-9-]\+"	contained nextgroup=sileOptionDef
 syntax match sileOptionDef	"="			contained nextgroup=sileOptionQuoted,sileOptionVal
 syntax match sileOptionVal	'[^,\]"]\+'		contained contains=sileBoolean nextgroup=sileOptionSep
 syntax match sileOptionSep	","			contained
 
-syntax region sileBlockLua	start="\\begin\(\[[^\]]*]\)\={script}" end="\\end{script}"me=s-1 keepend contains=sileBlock,@LUA
+syntax region sileBlockLua	start="\\begin\(\[[^\]]*]\)\={script}" end="\\end{script}"me=s-1 keepend contains=@LUA,sileBlock
+syntax region sileBlockLua	start="\\begin\(\[[^\]]*]\)\={lua}" end="\\end{lua}"me=s-1 keepend contains=@LUA,sileBlock
 
 syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP
 syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption nextgroup=sileContents
@@ -48,7 +49,7 @@ highlight! def link sileTodo		Todo
 highlight! def link sileBoolean		Boolean
 highlight! def link sileEscapedChar	Special
 highlight! def link sileCommand		Function
-highlight! def link sileScript		Type
+highlight! def link sileLua		Type
 highlight! def link sileOption		Identifier
 highlight! def link sileOptionVal	Character
 highlight! def link sileOptionSep	Delimiter
