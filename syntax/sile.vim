@@ -9,7 +9,11 @@ if exists('b:current_syntax')
   finish
 endif
 
+syntax clear
+
 syntax include @LUA syntax/lua.vim
+
+syntax spell toplevel
 
 syntax sync maxlines=200
 syntax sync minlines=50
@@ -19,7 +23,7 @@ syntax keyword sileTodo		contained fixme todo xxx
 syntax case match
 syntax keyword sileBoolean	contained true false
 
-syntax match sileComment	"%.*$"			contains=sileTodo,@Spell
+syntax match sileComment	"%.*$"			contains=@Spell,sileTodo
 syntax match sileEscapedChar	"\\[\\%{}]"
 syntax match sileCommand	"\\\h[a-zA-Z0-9:-]\+"	nextgroup=sileOptions,sileContents
 syntax match sileBlock		"\\begin\>\|\\end\>"	nextgroup=sileBlockOptions,sileBlockCommand
@@ -32,12 +36,12 @@ syntax match sileOptionSep	","			contained
 
 syntax region sileBlockLua	start="\\begin\(\[[^\]]*]\)\={script}" end="\\end{script}"me=s-1 keepend contains=sileBlock,@LUA
 
-syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP,@Spell
-syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption,@NoSpell nextgroup=sileContents
-syntax region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption,@NoSpell nextgroup=sileBlockCommand
+syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP
+syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption nextgroup=sileContents
+syntax region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption nextgroup=sileBlockCommand
 syntax region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
-syntax region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" keepend contained contains=sileComment
-syntax region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean,@NoSpell
+syntax region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" keepend contained contains=sileContents
+syntax region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean
 
 highlight! def link sileComment		Comment
 highlight! def link sileTodo		Todo
