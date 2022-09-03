@@ -46,12 +46,12 @@ syntax region sileBlockRaw	start="\\begin\(\[[^\]]*]\)\={raw}" end="\\end{raw}"m
 syntax region sileBlockXml	start="\\begin\(\[[^\]]*]\)\={xml}" end="\\end{xml}"me=s-1 keepend contains=@XML,sileBlock
 
 syntax region sileContents	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=TOP
-syntax region sileOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption nextgroup=sileContents
-syntax region sileBlockOptions	matchgroup=Delimiter start="\["	end="]" keepend contained contains=sileOption nextgroup=sileBlockCommand
-syntax region sileInlineLua	matchgroup=Delimiter start="{"	end="}" contained contains=@LUA
-syntax region sileInlineRaw	matchgroup=Delimiter start="{"	end="}" contained contains=NONE
-syntax region sileInlineXml	matchgroup=Delimiter start="{"	end="}" contained contains=@XML
-syntax region sileBlockCommand	matchgroup=Delimiter start="{"	end="}" keepend contained contains=sileContents
+syntax region sileOptions	matchgroup=Delimiter start="\["	skip="\\]" end="]" keepend contained contains=sileOption nextgroup=sileContents
+syntax region sileBlockOptions	matchgroup=Delimiter start="\["	skip="\\]" end="]" keepend contained contains=sileOption nextgroup=sileBlockCommand
+syntax region sileInlineLua	matchgroup=Delimiter start="{"	skip="\\}" end="}" contained contains=@LUA
+syntax region sileInlineRaw	matchgroup=Delimiter start="{"	skip="\\}" end="}" contained contains=NONE
+syntax region sileInlineXml	matchgroup=Delimiter start="{"	skip="\\}" end="}" contained contains=@XML
+syntax region sileBlockCommand	matchgroup=Delimiter start="{"	skip="\\}" end="}" keepend contained contains=sileContents
 syntax region sileOptionQuoted	matchgroup=Delimiter start='"'	skip='\\"' end='"' contained keepend contains=sileBoolean
 
 highlight! def link sileComment		Comment
