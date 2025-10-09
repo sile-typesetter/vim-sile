@@ -13,3 +13,7 @@ let b:did_ftplugin = 1
 
 setlocal comments=:%
 setlocal commentstring=%\ %s
+
+if !exists('current_compiler')
+  compiler sile
+endif
