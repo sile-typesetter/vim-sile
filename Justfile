@@ -4,11 +4,15 @@ set unstable := true
 just := just_executable()
 vim := which('vim')
 nvim := which('nvim')
+vint := which('vint')
 
 [default]
 [private]
 @help:
     {{ just }} --list --unsorted
+
+lint:
+    {{ vint }} .
 
 [no-cd]
 preview-vim *ARGS: (preview vim + ' --clean' ARGS)
