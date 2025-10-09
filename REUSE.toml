@@ -1,0 +1,22 @@
+version = 1
+
+[[annotations]]
+path = ["*.vim"]
+SPDX-FileCopyrightText = "© 2015 Caleb Maclennan <caleb@alerque.com>"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+[[annotations]]
+path = [
+	".github/**/*.yaml",
+	".github/**/*.yml",
+	".gitignore",
+	".vintrc.yaml",
+	"Justfile",
+]
+SPDX-FileCopyrightText = "© 2015 Caleb Maclennan <caleb@alerque.com>"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = ["README.md", "spec/*.vader"]
+SPDX-FileCopyrightText = "© 2015 Caleb Maclennan <caleb@alerque.com>"
+SPDX-License-Identifier = "CC0-1.0"

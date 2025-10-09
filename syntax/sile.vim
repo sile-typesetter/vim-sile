@@ -1,3 +1,6 @@
+" SPDX-FileCopyrightText: © 2015 Caleb Maclennan <caleb@alerque.com>
+" SPDX-License-Identifier: GPL-2.0-or-later
+
 " Vim syntax file
 " Language:   SILE
 " Maintainer: Caleb Maclennan <caleb@alerque.com>
