@@ -75,4 +75,4 @@ highlight! def link sileBlock		Repeat
 highlight! def link sileBlockCommand	Function
 
 let b:current_syntax = 'sile'
-" vim: ts=8 fdm=marker
+" vim: ts=8
